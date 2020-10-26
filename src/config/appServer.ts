@@ -4,6 +4,7 @@ import * as bodyParser from 'body-parser';
 import cors from 'cors';
 import morgan from 'morgan';
 import helmet from 'helmet';
+import compression from 'compression';
 
 const log = require('debug')('app:log');
 
@@ -32,6 +33,7 @@ class App {
       log('Morgan enabled...');
     }
     this.app.use(helmet());
+    this.app.use(compression());
   }
 
   private initializeControllers(controllers: ControllerProps[]) {
