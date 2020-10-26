@@ -1,0 +1,83 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model company {
+  company_id      Int     @id @default(autoincrement())
+  company_name    String
+  company_address String
+  phone_number    String
+  email           String?
+  website         String?
+}
+
+model location {
+  location_id   Int    @id @default(autoincrement())
+  location_name String
+}
+
+model report_sars_officer {
+  report_id          Int      @id @default(autoincrement())
+  officer_name_tag   String
+  // This type is currently not supported.
+  // office_photo    blob?
+  details            String
+  location_id        Int
+  stop_and_search_id Int
+  user_id            Int
+  date_created       DateTime
+}
+
+model request_bailout {
+  request_bailout_id  Int      @id @default(autoincrement())
+  details             String
+  location_id         Int
+  user_id             Int
+  release_or_detained String
+  date_created        DateTime
+}
+
+model stop_and_search {
+  stop_and_search_id Int    @id @default(autoincrement())
+  details            String
+  // This type is currently not supported.
+  // evidence_photo  blob?
+  // This type is currently not supported.
+  // evidence_video  blob?
+  location_id        Int
+  user_id            Int
+  date_created       Int
+}
+
+model user {
+  user_id               Int      @id @default(autoincrement())
+  company_id            Int
+  user_unique_reference String
+  hustle_name           String
+  fistname              String
+  middlename            String?
+  lastname              String
+  date_of_birth         DateTime
+  mobile_number         String
+  gender                String
+  email_address         String   @unique
+  pin_code              String
+  ip_address            String
+  verified              String
+  date_created          DateTime
+  password              String
+}
+
+model user_contact {
+  user_contact_id      Int    @id @default(autoincrement())
+  house_or_flat_number String
+  street_name          String
+  town                 String
+  city                 String
+  user_id              Int
+}
