@@ -6,7 +6,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import compression from 'compression';
 
-const log = require('debug')('app:log');
+// const log = require('debug')('app:log');
 
 import { ControllerProps } from '../types';
 import { PORT, DB_URI } from '../constants';
@@ -58,7 +58,7 @@ class App {
 
   public listen() {
     this.app.listen(PORT, () => {
-      log(`App listening on the port ${PORT}`);
+      // log(`App listening on the port ${PORT}`);
     });
   }
 }
