@@ -2,7 +2,7 @@ import 'dotenv/config';
 import express from 'express';
 import * as bodyParser from 'body-parser';
 import cors from 'cors';
-import morgan from 'morgan';
+// import morgan from 'morgan';
 import helmet from 'helmet';
 import compression from 'compression';
 
@@ -28,10 +28,10 @@ class App {
     this.app.use(bodyParser.json());
     this.app.use(bodyParser.urlencoded({ extended: true }));
     this.app.use(cors());
-    if (this.app.get('env') === 'development') {
-      this.app.use(morgan('tiny'));
-      log('Morgan enabled...');
-    }
+    // if (this.app.get('env') === 'development') {
+    //   this.app.use(morgan('tiny'));
+    //   log('Morgan enabled...');
+    // }
     this.app.use(helmet());
     this.app.use(compression());
   }
