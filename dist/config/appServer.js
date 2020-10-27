@@ -26,8 +26,10 @@ require("dotenv/config");
 const express_1 = __importDefault(require("express"));
 const bodyParser = __importStar(require("body-parser"));
 const cors_1 = __importDefault(require("cors"));
+const morgan_1 = __importDefault(require("morgan"));
 const helmet_1 = __importDefault(require("helmet"));
 const compression_1 = __importDefault(require("compression"));
+const log = require('debug')('app:log');
 const constants_1 = require("../constants");
 class App {
     constructor(controllers, _port) {
@@ -42,6 +44,10 @@ class App {
         this.app.use(bodyParser.json());
         this.app.use(bodyParser.urlencoded({ extended: true }));
         this.app.use(cors_1.default());
+        if (this.app.get('env') === 'development') {
+            this.app.use(morgan_1.default('tiny'));
+            log('Morgan enabled...');
+        }
         this.app.use(helmet_1.default());
         this.app.use(compression_1.default());
     }
@@ -55,6 +61,7 @@ class App {
     }
     listen() {
         this.app.listen(constants_1.PORT, () => {
+            log(`App listening on the port ${constants_1.PORT}`);
         });
     }
 }

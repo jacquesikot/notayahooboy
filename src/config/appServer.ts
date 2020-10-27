@@ -2,11 +2,11 @@ import 'dotenv/config';
 import express from 'express';
 import * as bodyParser from 'body-parser';
 import cors from 'cors';
-// import morgan from 'morgan';
+import morgan from 'morgan';
 import helmet from 'helmet';
 import compression from 'compression';
 
-// const log = require('debug')('app:log');
+const log = require('debug')('app:log');
 
 import { ControllerProps } from '../types';
 import { PORT, DB_URI } from '../constants';
@@ -28,10 +28,10 @@ class App {
     this.app.use(bodyParser.json());
     this.app.use(bodyParser.urlencoded({ extended: true }));
     this.app.use(cors());
-    // if (this.app.get('env') === 'development') {
-    //   this.app.use(morgan('tiny'));
-    //   log('Morgan enabled...');
-    // }
+    if (this.app.get('env') === 'development') {
+      this.app.use(morgan('tiny'));
+      log('Morgan enabled...');
+    }
     this.app.use(helmet());
     this.app.use(compression());
   }
@@ -58,7 +58,7 @@ class App {
 
   public listen() {
     this.app.listen(PORT, () => {
-      // log(`App listening on the port ${PORT}`);
+      log(`App listening on the port ${PORT}`);
     });
   }
 }
